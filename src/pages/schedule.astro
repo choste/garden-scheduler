@@ -1,0 +1,77 @@
+---
+export const partial = true;
+import { placements } from "../../node_modules/astro/dist/runtime/client/dev-toolbar/ui-library/window";
+import handler from "../lib/updateSchedule.js";
+
+const result = await handler(Astro).then(data => data.map(data => {
+    let plant = new Date();
+    let start = new Date();
+    let harvest = new Date();
+
+    plant.setTime(Date.parse(data.plant))
+
+    return ({
+        ...data,
+        start: new Date(start.setDate(plant.getDate() - 7*data.start)),
+        harvest: new Date(harvest.setDate(plant.getDate() + data.harvest)),
+        plant: plant
+    })
+}));
+
+console.log(result)
+
+const start = new Date(Date.now());
+let months = [];
+
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+for (var i = 0; i < 11; i++) {
+  months.push({
+    name: monthNames[i],
+    events: result.filter(({start, plant, harvest}) => start.getMonth() == i || plant.getMonth() == i || harvest.getMonth() == i).map(data => {
+        if (data.start.getMonth() == i) {
+            return {
+                date: data.start,
+                name: "Start the " + data.name + " indoors"
+            }
+        }
+        if (data.plant.getMonth() == i) {
+            return {
+                date: data.plant,
+                name: "Plant the " + data.name + " in the garden"
+            }
+        }
+        if (data.harvest.getMonth() == i) {
+            return {
+                date: data.harvest,
+                name: "Havest your " + data.name + ", time to plant more stuff"
+            }
+        }
+    })
+  })
+}
+---
+
+<ul class="flex-none bg-orange-200">
+  {
+    months.map((data) => {
+      return (<li class="p-2 m-2">
+        <div>{data.name}</div>
+            {data.events.map(data => (<div><span>{data.date.toISOString()}</span>{data.name}</div>))}
+        </li>);
+    })
+  }
+</ul>
