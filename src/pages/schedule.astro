@@ -3,27 +3,9 @@ export const partial = true;
 import { placements } from "../../node_modules/astro/dist/runtime/client/dev-toolbar/ui-library/window";
 import handler from "../lib/updateSchedule.js";
 
-const result = await handler(Astro).then(data => data.map(data => {
-    let plant = new Date();
-    let start = new Date();
-    let harvest = new Date();
+const events = await handler(Astro);
 
-    plant.setTime(Date.parse(data.plant))
-
-    return ({
-        ...data,
-        start: new Date(start.setDate(plant.getDate() - 7*data.start)),
-        harvest: new Date(harvest.setDate(plant.getDate() + data.harvest)),
-        plant: plant
-    })
-}));
-
-console.log(result)
-
-const start = new Date(Date.now());
-let months = [];
-
-const monthNames = [
+const months = [
   "January",
   "February",
   "March",
@@ -38,40 +20,27 @@ const monthNames = [
   "December",
 ];
 
-for (var i = 0; i < 11; i++) {
-  months.push({
-    name: monthNames[i],
-    events: result.filter(({start, plant, harvest}) => start.getMonth() == i || plant.getMonth() == i || harvest.getMonth() == i).map(data => {
-        if (data.start.getMonth() == i) {
-            return {
-                date: data.start,
-                name: "Start the " + data.name + " indoors"
-            }
-        }
-        if (data.plant.getMonth() == i) {
-            return {
-                date: data.plant,
-                name: "Plant the " + data.name + " in the garden"
-            }
-        }
-        if (data.harvest.getMonth() == i) {
-            return {
-                date: data.harvest,
-                name: "Havest your " + data.name + ", time to plant more stuff"
-            }
-        }
-    })
-  })
-}
+console.log(events);
 ---
 
-<ul class="flex-none bg-orange-200">
+<ul class="flex-none bg-slate-100 rounded shadow-xl" id="schedule">
   {
-    months.map((data) => {
-      return (<li class="p-2 m-2">
-        <div>{data.name}</div>
-            {data.events.map(data => (<div><span>{data.date.toISOString()}</span>{data.name}</div>))}
-        </li>);
+    months.map((month, index) => {
+      return (
+        <li class="p-2 m-2">
+          <div>{month}</div>
+          {events
+            .filter((event) => event.month == index)
+            .map((event) => (
+              <div class="text-sm leading-6">
+                <span class="outline outline-2 rounded-full px-1 mr-1">
+                  {event.day}
+                </span>
+                {event.message}
+              </div>
+            ))}
+        </li>
+      );
     })
   }
 </ul>

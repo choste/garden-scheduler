@@ -1,32 +1,51 @@
 ---
 const start = new Date(Date.now());
-let months = []
-const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+let months = [];
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
 for (var i = 0; i < 11; i++) {
-	months.push(start.getMonth())
-	start.setMonth(start.getMonth() + 1)
+  months.push(start.getMonth());
+  start.setMonth(start.getMonth() + 1);
 }
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />		
-		<title>Astro</title>
-		<script src="/htmx.min.js" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2"></script>
-	</head>
-	<body class="container mx-auto bg-slate-100 h-screen">
-		<h1 class="bg-orange-200 m-2">Garden Scheduler</h1>
-		<main class="flex justify-between m-2">
-			<ul id="schedule" class="flex-none bg-orange-200">
-				{months.map((data) => {return (<li class="p-2 m-2">{monthNames[data]}</li>)})}
-			</ul>
-			<controls class="bg-orange-200 flex-none w-32">
-				<input type="checkbox" hx-post="/schedule" hx-target="#schedule" name="tomatoes">Tomatoes</input>
-			</controls>
-		</main>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro</title>
+    <script
+      src="/htmx.min.js"
+      integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2"
+    ></script>
+  </head>
+  <body class="container mx-auto bg-slate-300 h-screen">
+    <h1 class="m-2 text-xl">Garden Scheduler</h1>
+    <main class="flex justify-between m-2">
+      <ul
+        id="schedule"
+        hx-trigger="load"
+        hx-get="/schedule"
+        hx-swap="outerHTML"
+      >
+      </ul>
+      <controls hx-trigger="load" hx-get="/controls" hx-swap="outerHTML">
+      </controls>
+    </main>
+  </body>
 </html>
