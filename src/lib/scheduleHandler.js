@@ -7,7 +7,7 @@ export default async function handler(Astro) {
     console.log("we be posting")
     try {
       const data = await Astro.request.formData();
-      if (data.get("tomatoes")) {
+      if (data.get("plant") == 'tomato' ) {
         await knex("events").insert({
           message: "Start tomatoes indoors",
           day: 3,

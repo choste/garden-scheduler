@@ -1,7 +1,6 @@
 ---
 export const partial = true;
-import { placements } from "../../node_modules/astro/dist/runtime/client/dev-toolbar/ui-library/window";
-import handler from "../lib/updateSchedule.js";
+import handler from "../lib/scheduleHandler.js";
 
 const events = await handler(Astro);
 
@@ -19,8 +18,6 @@ const months = [
   "November",
   "December",
 ];
-
-console.log(events);
 ---
 
 <ul class="flex-none bg-slate-100 rounded shadow-xl" id="schedule">
