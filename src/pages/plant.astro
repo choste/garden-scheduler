@@ -1,6 +1,29 @@
 ---
 export const partial = true;
 ---
-<form>
-    <p>YO</p>
+
+<form class="p-4" hx-post="/schedule" hx-target="#schedule" hx-swap="outerHTML">
+  <div class="leading-5 m-1">
+    <label>name</label><input name="name" type="text" />
+  </div>
+  <div class="leading-5 m-1">
+    <label>when to plant</label><input name="whenToPlant" type="date" />
+  </div>
+  <div class="leading-5 m-1">
+    <label>start inside</label><input name="startInside" type="number" />
+  </div>
+  <div class="leading-5 m-1">
+    <label>days till harvest</label><input
+      name="daysTillHarvest"
+      type="number"
+    />
+  </div>
+  <div class="leading-5 m-1">
+    <label>harvest type</label>
+    <select name="harvestType">
+      <option value="">--Please choose an option--</option>
+      <option value="determinate">Determinate</option>
+    </select>
+  </div>
+  <button class="mt-4" type="submit">Add</button>
 </form>

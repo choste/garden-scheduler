@@ -19,7 +19,6 @@ const months = [
   "December",
 ];
 ---
-
 <ul class="flex-none bg-slate-100 rounded shadow-xl" id="schedule">
   {
     months.map((month, index) => {
@@ -34,6 +33,7 @@ const months = [
                   {event.day}
                 </span>
                 {event.message}
+                <button hx-delete={`/events/${event.id}`} hx-swap="delete" hx-target="closest div">del</button>
               </div>
             ))}
         </li>
