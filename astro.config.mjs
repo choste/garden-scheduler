@@ -9,5 +9,9 @@ export default defineConfig({
   output: "server",
   adapter: node({
     mode: "standalone"
-  })
+  }),
+  server: {
+    port: 8000,
+    host: true
+  }
 });

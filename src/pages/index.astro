@@ -1,25 +1,5 @@
 ---
 const start = new Date(Date.now());
-let months = [];
-const monthNames = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
-for (var i = 0; i < 11; i++) {
-  months.push(start.getMonth());
-  start.setMonth(start.getMonth() + 1);
-}
 ---
 
 <html lang="en">
@@ -44,9 +24,19 @@ for (var i = 0; i < 11; i++) {
         hx-swap="outerHTML"
       >
       </ul>
-	  <controls class="bg-slate-100 flex-none rounded m-2 shadow-xl" hx-trigger="load" hx-get="/plan" hx-swap="outerHTML" hx-target="form">
-		<button class="m-2" hx-get="/plant" hx-swap="outerHTML" hx-target="form">Plants</button><button class="m-2" hx-get="/plan" hx-swap="outerHTML" hx-target="form">Plan</button>
-		<form></form>
+      <controls
+        class="bg-slate-100 flex-none rounded m-2 shadow-xl"
+        hx-trigger="load"
+        hx-get="/plan"
+        hx-swap="outerHTML"
+        hx-target="form"
+      >
+        <button class="px-2 border rounded-t" hx-get="/plant" hx-swap="outerHTML" hx-target="form"
+          >Plants</button
+        ><button class="px-2 border rounded-t" hx-get="/plan" hx-swap="outerHTML" hx-target="form"
+          >Plan</button
+        >
+        <form></form>
       </controls>
     </main>
   </body>
