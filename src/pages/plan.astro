@@ -4,7 +4,7 @@ export const partial = true;
 <form class="p-4" hx-post="/schedule" hx-target="#schedule" hx-swap="outerHTML">
     <div class="leading-5 m-1">
         <label>Plant</label>
-        <select name="plant">
+        <select name="name">
           <option value="">--Please choose an option--</option>
           <option value="tomato">Tomato</option>
         </select>
@@ -14,7 +14,7 @@ export const partial = true;
     </div>
     <div class="leading-5 m-1">
       <label>Plant at</label><input
-        name="plantDate"
+        name="plantAt"
         type="date"
       />
     </div>

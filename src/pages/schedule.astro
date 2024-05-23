@@ -1,8 +1,11 @@
 ---
 export const partial = true;
 import handler from "../lib/scheduleHandler.js";
+import knex from "../lib/knex";
 
 const events = await handler(Astro);
+const plants = await knex('plants').select()
+console.log(plants)
 
 const months = [
   "January",

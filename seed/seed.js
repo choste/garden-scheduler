@@ -6,13 +6,14 @@ const run = async () => {
         await knex.schema.createTable("plants", function (table) {
           table.increments("id");
           table.string("name");
-          table.integer("start");
-          table.string("plant");
-          table.integer("harvest");
+          table.integer("when_to_plant");
+          table.integer("days_indoors");
+          table.integer("days_till_harvest");
+          table.string("harvest_type");
           table.string("modified");
         });
         
-        await knex('plants').insert({name: 'tomatoes', modified: new Date(Date.now()).toISOString(), start: 8, harvest: 70, plant: (new Date('May 01, 2024 00:00:00 GMT-7:00')).toISOString()})
+        await knex('plants').insert({name: 'tomato', modified: new Date(Date.now()).toISOString(), days_indoors: 56, days_till_harvest: 100, when_to_plant: 4, harvest_type: "determinate" })
     }
 
     if (!(await knex.schema.hasTable('events'))) {
@@ -24,8 +25,6 @@ const run = async () => {
       })
 
     }
-
-
 
     knex.destroy();
 }

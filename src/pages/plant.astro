@@ -2,12 +2,12 @@
 export const partial = true;
 ---
 
-<form class="p-4" hx-post="/schedule" hx-target="#schedule" hx-swap="outerHTML">
+<form class="p-4" hx-post="/plants" hx-target="#schedule" hx-swap="none">
   <div class="leading-5 m-1">
     <label>name</label><input name="name" type="text" />
   </div>
   <div class="leading-5 m-1">
-    <label>when to plant</label><input name="whenToPlant" type="date" />
+    <label>when to plant</label><input name="whenToPlant" type="number" />
   </div>
   <div class="leading-5 m-1">
     <label>start inside</label><input name="startInside" type="number" />
